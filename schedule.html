@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule Appointment</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        .form-container {
+            max-width: 700px;
+        }
+        .image-container img {
+            max-width: 700px;
+            height: auto;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+    <div class="flex flex-col md:flex-row justify-center items-center h-screen space-x-8">
+        <!-- Form Section -->
+        <div class="form-container bg-white p-8 rounded-lg shadow-lg mx-4">
+            <h2 class="text-3xl font-semibold mb-6">Schedule Appointment</h2>
+            <form id="appointmentForm">
+                <!-- First Name and Last Name -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <div>
+                        <label for="firstName" class="block text-sm font-medium text-gray-700">First Name</label>
+                        <input type="text" id="firstName" class="block w-full mt-1 border border-gray-300 rounded-md p-2" placeholder="First Name" required>
+                    </div>
+                    <div>
+                        <label for="lastName" class="block text-sm font-medium text-gray-700">Last Name</label>
+                        <input type="text" id="lastName" class="block w-full mt-1 border border-gray-300 rounded-md p-2" placeholder="Last Name" required>
+                    </div>
+                </div>
+
+                <!-- Email and Cell Number -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                        <input type="email" id="email" class="block w-full mt-1 border border-gray-300 rounded-md p-2" placeholder="Email" required>
+                    </div>
+                    <div>
+                        <label for="cellNumber" class="block text-sm font-medium text-gray-700">Cell Number</label>
+                        <input type="text" id="cellNumber" class="block w-full mt-1 border border-gray-300 rounded-md p-2" placeholder="+44 7125496234" required>
+                    </div>
+                </div>
+
+                <!-- Department and Doctor -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <div>
+                        <label for="department" class="block text-sm font-medium text-gray-700">Department</label>
+                        <select id="department" class="block w-full mt-1 text-gray-400 border border-gray-300 rounded-md p-2" onchange="updateDoctors()" required>
+                            <option value="">Select Department</option>
+                            <option value="neurology">Neurology</option>
+                            <option value="pediatric">Pediatric</option>
+                            <option value="cardiology">Cardiology</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="doctor" class="block text-sm font-medium text-gray-700">Doctor</label>
+                        <select id="doctor" class="block w-full mt-1 text-gray-400 border border-gray-300 rounded-md p-2" required>
+                            <option value="">Select Doctor</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Appointment Date and Time -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <div>
+                        <label for="appointmentDate" class="block text-sm font-medium text-gray-700">Appointment Date</label>
+                        <input type="date" id="appointmentDate" class="block w-full mt-1 border border-gray-300 rounded-md p-2" required>
+                    </div>
+                    <div>
+                        <label for="appointmentTime" class="block text-sm font-medium text-gray-700">Appointment Time</label>
+                        <input type="text" id="appointmentTime" class="block w-full mt-1 border border-gray-300 rounded-md p-2" placeholder="HH:MM AM/PM" required>
+                    </div>
+                </div>
+
+                <!-- Buttons -->
+                <div class="flex justify-between items-center mt-6">
+                    <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600" id="submit">Book Appointment</button>
+                    <button type="button" class="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600" onclick="document.getElementById('appointmentForm').reset();">Cancel</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Image Section -->
+        <div class="image-container hidden md:block md:w-1/2">
+            <img src="../static/4569.jpg" alt="Medical Image" class="rounded-lg shadow-lg">
+        </div>
+    </div>
+
+    <!-- Appointment Confirmation Popup -->
+    <div id="appointment-confirm-popup" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full">
+        <div class="relative p-4 w-full max-w-lg h-full md:h-auto">
+            <div class="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 md:p-8">
+                <div class="mb-4 text-sm font-light text-gray-500 dark:text-gray-400">
+                    <h3 class="mb-3 text-2xl font-bold text-gray-900 dark:text-white">Appointment Confirmation</h3>
+                    <p>
+                        Your appointment is confirmed for <span id="confirmed-appointment-time" class="font-semibold text-gray-900 dark:text-white"></span>.
+                    </p>
+                </div>
+                <div class="justify-between items-center pt-0 space-y-4 sm:flex sm:space-y-0">
+                    <a href="#" class="font-medium text-primary-600 dark:text-primary-500 hover:underline"></a>
+                    <div class="items-center space-y-4 sm:space-x-4 sm:flex sm:space-y-0">
+                        <button id="close-modal" type="button" class="py-2 px-4 w-full text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-200 sm:w-auto hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
+                        <button id="confirm-button" type="button" class="py-2 px-4 w-full text-sm font-medium text-center text-white rounded-lg bg-primary-700 sm:w-auto hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Confirm</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+    </script>
+    <script src="../static/schedule.js"></script>
+</body>
+
+</html>

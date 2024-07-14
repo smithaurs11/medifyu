@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+    <style>
+        body {
+            font-family: 'Bahnschrift SemiBold', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f4f8;
+        }
+        .container {
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #34495e;
+        }
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+        }
+        .form-group button {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        .form-group button:hover {
+            background-color: #2980b9;
+        }
+        .form-group select {
+            cursor: pointer;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const totalPrice = urlParams.get('totalPrice');
+            document.getElementById('amount').value = `$${totalPrice}`;
+
+            const paymentMethodSelect = document.getElementById('payment-method');
+            paymentMethodSelect.addEventListener('change', () => {
+                const cardDetails = document.getElementById('card-details');
+                const netBankingDetails = document.getElementById('net-banking-details');
+                const cashOnDelivery = document.getElementById('cash-on-delivery');
+
+                cardDetails.classList.add('hidden');
+                netBankingDetails.classList.add('hidden');
+                cashOnDelivery.classList.add('hidden');
+
+                if (paymentMethodSelect.value === 'card') {
+                    cardDetails.classList.remove('hidden');
+                } else if (paymentMethodSelect.value === 'net-banking') {
+                    netBankingDetails.classList.remove('hidden');
+                } else if (paymentMethodSelect.value === 'cod') {
+                    cashOnDelivery.classList.remove('hidden');
+                }
+            });
+        });
+
+        function processPayment() {
+            const paymentMethod = document.getElementById('payment-method').value;
+            if (paymentMethod === 'card') {
+                alert('Payment processed successfully using card!');
+            } else if (paymentMethod === 'net-banking') {
+                alert('Payment processed successfully using net banking!');
+            } else if (paymentMethod === 'cod') {
+                alert('Order placed successfully! Pay cash on delivery.');
+            }
+            window.location.href = 'order_confirmation.html';
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Payment</h2>
+        <div class="form-group">
+            <label for="payment-method">Payment Method</label>
+            <select id="payment-method">
+                <option value="" disabled selected>Select a payment method</option>
+                <option value="card">Card</option>
+                <option value="net-banking">Net Banking</option>
+                <option value="cod">Cash on Delivery</option>
+            </select>
+        </div>
+
+        <div id="card-details" class="hidden">
+            <div class="form-group">
+                <label for="card-number">Card Number</label>
+                <input type="text" id="card-number" placeholder="1234 5678 9012 3456" required>
+            </div>
+            <div class="form-group">
+                <label for="expiry-date">Expiry Date</label>
+                <input type="text" id="expiry-date" placeholder="MM/YY" required>
+            </div>
+            <div class="form-group">
+                <label for="cvv">CVV</label>
+                <input type="text" id="cvv" placeholder="123" required>
+            </div>
+        </div>
+
+        <div id="net-banking-details" class="hidden">
+            <div class="form-group">
+                <label for="bank-name">Bank Name</label>
+                <select id="bank-name">
+                    <option value="" disabled selected>Select your bank</option>
+                    <option value="bank1">Bank 1</option>
+                    <option value="bank2">Bank 2</option>
+                    <option value="bank3">Bank 3</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="account-number">Account Number</label>
+                <input type="text" id="account-number" placeholder="123456789" required>
+            </div>
+        </div>
+
+        <div id="cash-on-delivery" class="hidden">
+            <p>Cash on delivery. Pay when you receive your order.</p>
+        </div>
+
+        <div class="form-group">
+            <label for="amount">Amount</label>
+            <input type="text" id="amount" readonly>
+        </div>
+        <div class="form-group">
+            <button type="button" onclick="processPayment()">Pay Now</button>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medicine Management</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        .border-b {
+            border-bottom-width: 1px;
+        }
+        .border-l {
+            border-left-width: 1px;
+        }
+        .border-t {
+            border-top-width: 1px;
+        }
+        .border-r {
+            border-right-width: 1px;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+    <section class="p-6">
+        <div class="bg-white rounded-lg shadow-lg p-4">
+            <div class="flex justify-between items-center mb-4">
+                <h1 class="text-xl font-semibold" style="font-family: 'Gramond'; font-size: 2em;">Medicine Management</h1>
+            </div>
+            
+            <!-- Actions and Filters Row -->
+            <div class="flex justify-between items-center mb-4">
+                <div class="flex space-x-4 items-center">
+                    <label for="actions" class="block text-xl font-medium text-gray-700">Actions</label>
+                    <select id="actions" class="block w-full mt-1 border-gray-300 rounded-md" onchange="filterByStatus()">
+                        <option value="all">All</option>
+                        <option value="taken">Taken</option>
+                        <option value="not_taken">Not Taken</option>
+                    </select>
+                </div>
+                <div class="flex space-x-4 ml-auto">
+                    <div>
+                        <input type="text" id="searchMedicine" class="block w-full mt-1 border border-gray-300 rounded-md p-2" placeholder="Search Medicine" onkeyup="searchMedicine()">
+                    </div>
+                    <div>
+                        <input type="text" id="searchReason" class="block w-full mt-1 border border-gray-300 rounded-md p-2" placeholder="Search Reason" onkeyup="searchReason()">
+                    </div>
+                </div>
+            </div>
+            
+            <table class="min-w-full bg-white">
+                <thead>
+                    <tr>
+                        <th class="px-4 py-2 border border-gray-300">
+                            <input type="checkbox" id="selectAll" onclick="selectAllMedicines(this)">
+                        </th>
+                        <th class="px-4 py-2 border border-gray-300">Medicine</th>
+                        <th class="px-4 py-2 border border-gray-300">Reason</th>
+                        <th class="px-4 py-2 border border-gray-300">Dosage</th>
+                        <th class="px-4 py-2 border border-gray-300">Duration</th>
+                        <th class="px-4 py-2 border border-gray-300">Expiry Date</th>
+                        <th class="px-4 py-2 border border-gray-300">Status</th>
+                    </tr>
+                </thead>
+                <tbody id="medicineTable">
+                    <tr>
+                        <td class="border px-4 py-2 text-center">
+                            <input type="checkbox" class="medicine-checkbox">
+                        </td>
+                        <td class="border px-4 py-2">Paracetamol</td>
+                        <td class="border px-4 py-2">Fever</td>
+                        <td class="border px-4 py-2">1-0-1</td>
+                        <td class="border px-4 py-2">5 days</td>
+                        <td class="border px-4 py-2">01-07-2026</td>
+                        <td class="border px-4 py-2">
+                            <select class="block w-full mt-1">
+                                <option value="taken">Taken</option>
+                                <option value="not_taken">Not Taken</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="border px-4 py-2 text-center">
+                            <input type="checkbox" class="medicine-checkbox">
+                        </td>
+                        <td class="border px-4 py-2">Ibuprofen</td>
+                        <td class="border px-4 py-2">Pain Relief</td>
+                        <td class="border px-4 py-2">1-1-1</td>
+                        <td class="border px-4 py-2">7 days</td>
+                        <td class="border px-4 py-2">17-01-2025</td>
+                        <td class="border px-4 py-2">
+                            <select class="block w-full mt-1">
+                                <option value="taken">Taken</option>
+                                <option value="not_taken">Not Taken</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="border px-4 py-2 text-center">
+                            <input type="checkbox" class="medicine-checkbox">
+                        </td>
+                        <td class="border px-4 py-2">Amoxicillin</td>
+                        <td class="border px-4 py-2">Infection</td>
+                        <td class="border px-4 py-2">1-1-0</td>
+                        <td class="border px-4 py-2">10 days</td>
+                        <td class="border px-4 py-2">13-11-2025</td>
+                        <td class="border px-4 py-2">
+                            <select class="block w-full mt-1">
+                                <option value="taken">Taken</option>
+                                <option value="not_taken">Not Taken</option>
+                            </select>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Buttons moved to after table -->
+            <div class="flex justify-between mt-4">
+                <button class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600" onclick="addNewMedicine()">Add New Medicine</button>
+                <div class="flex space-x-2">
+                    <button id="save" class="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600">Save</button>
+                    <button id="delete" class="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600">Delete</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   <script src="../static/medicine.js"></script>
+</body>
+
+</html>

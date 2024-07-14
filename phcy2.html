@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Medicines</title>
+    <style>
+        body {
+            font-family: 'Bahnschrift SemiBold', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f4f8;
+        }
+        .container {
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 40px;
+            max-width: 900px;
+            width: 100%;
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #34495e;
+        }
+        .form-group select, .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+        }
+        .form-group button {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .form-group button:hover {
+            background-color: #2980b9;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #bdc3c7;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        .total-price-container {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .total-price {
+            font-size: 18px;
+            color: #2c3e50;
+        }
+        .order-now {
+            background-color: #e74c3c;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            text-align: center;
+            cursor: pointer;
+        }
+        .order-now:hover {
+            background-color: #c0392b;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const addButton = document.getElementById('add-medicine');
+            const medicineTable = document.getElementById('medicine-table');
+            const totalPriceElement = document.getElementById('total-price');
+            let totalPrice = 0;
+
+            const medicinePrices = {
+                aspirin: 5,
+                ibuprofen: 8,
+                paracetamol: 3
+            };
+
+            addButton.addEventListener('click', () => {
+                const medicineName = document.getElementById('medicine-name').value;
+                const quantity = parseInt(document.getElementById('quantity').value);
+                const price = medicinePrices[medicineName];
+                const total = price * quantity;
+
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${medicineName}</td>
+                    <td>${quantity}</td>
+                    <td>$${total}</td>
+                `;
+                medicineTable.querySelector('tbody').appendChild(row);
+
+                totalPrice += total;
+                totalPriceElement.textContent = `Total Price: $${totalPrice.toFixed(2)}`;
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Add Medicines</h2>
+        <div class="form-group">
+            <label for="medicine-name">Medicine Name</label>
+            <select id="medicine-name">
+                <option value="aspirin">Aspirin</option>
+                <option value="ibuprofen">Ibuprofen</option>
+                <option value="paracetamol">Paracetamol</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="quantity">Quantity</label>
+            <select id="quantity">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <button type="button" id="add-medicine">Add Medicine</button>
+        </div>
+        <table id="medicine-table">
+            <thead>
+                <tr>
+                    <th>Medicine Name</th>
+                    <th>Quantity</th>
+                    <th>Total Price</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <div class="total-price-container">
+            <div class="total-price" id="total-price">Total Price: $0.00</div>
+            <a href="pypyt.html" class="order-now">Order Now</a>
+        </div>
+    </div>
+</body>
+</html>

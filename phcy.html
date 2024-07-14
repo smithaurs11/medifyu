@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medicine Order Form</title>
+    <style>
+        body {
+            font-family: 'Bahnschrift SemiBold', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f4f8;
+        }
+        .container {
+            display: flex;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            max-width: 900px;
+            width: 100%;
+        }
+        .form-container {
+            padding: 40px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .form-container h2 {
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #34495e;
+        }
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+        }
+        .form-group a {
+            display: inline-block;
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            text-align: center;
+            cursor: pointer;
+        }
+        .form-group a:hover {
+            background-color: #2980b9;
+        }
+        .image-container {
+            background: url('../static/159.jpg') no-repeat center center;
+            background-size: cover;
+            width: 47%; /* Adjust the width as per your design */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <h2>Order Medicine</h2>
+            <form>
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <select id="name" name="name">
+                        <option value="john_doe">John Doe</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <select id="email" name="email">
+                        <option value="john@example.com">john@example.com</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <select id="phone" name="phone">
+                        <option value="123-456-7890">123-456-7890</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <select id="address" name="address">
+                        <option value="123_main_st">123 Main St</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="doctor">Doctor</label>
+                    <select id="doctor" name="doctor">
+                        <option value="dr_smith">Dr. Smith</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <a href="{{ url_for('phcy2') }}">Next</a>
+                </div>
+            </form>
+        </div>
+        <div class="image-container"></div>
+    </div>
+</body>
+</html>
